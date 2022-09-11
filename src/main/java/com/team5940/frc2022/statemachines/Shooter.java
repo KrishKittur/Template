@@ -1,7 +1,5 @@
 package com.team5940.frc2022.statemachines;
 
-import javax.naming.ldap.StartTlsRequest;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
