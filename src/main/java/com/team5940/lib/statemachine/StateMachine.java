@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // It provides methods that make it easier to write statemachine-based code while staying somewhat true to the wpilib command-based paradigm.
 public abstract class StateMachine extends SubsystemBase {
 
+    // Variable to track whether the StateMachine has been initialized
+    private boolean mInitialized = false;
+
     // The handle() method runs once
     // It's for initializing motors and variables that would otherwise not work in the constructor.
     protected abstract void init();
@@ -25,10 +28,13 @@ public abstract class StateMachine extends SubsystemBase {
     // It is periodically called every loop cycle. 
     protected abstract void log();
 
-    // Periodically calls onLoop() and log() every loop cycle. 
+    // Periodically calls init() once and onLoop() and log() every loop cycle. 
     @Override
     public void periodic() {
-        init();
+        if (!mInitialized) {
+            init();
+            mInitialized = true;
+        }
         onLoop();
         log();
     }
