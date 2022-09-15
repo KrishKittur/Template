@@ -13,20 +13,15 @@ public abstract class StateMachine extends SubsystemBase {
     // It's for initializing motors and variables that would otherwise not work in the constructor.
     protected abstract void init();
 
-    // The handle(Request r) method is to be overriden by any subclasses.
-    // For any requesed action, this method will change instance variables and system states
-    // to ensure that the correct state output is being applied
-    protected abstract void handle(Request r);
-
-    // The onLoop() method is to be overriden by any subclasses. 
-    // This method applies outputs and transitions based on state variables
+    // The applyOutputs() method is to be overriden by any subclasses. 
+    // This method applies outputs based on state variables.
     // It is periodically called every loop cycle. 
-    protected abstract void onLoop();
-
-    // The log() method is to overriden by any subclasses.
-    // This method logs anything that the user so pleases. 
-    // It is periodically called every loop cycle. 
-    protected abstract void log();
+    protected abstract void applyOutputs();
+    
+    // The handleTransitions() method is to be overriden by any subclasses.
+    // This method applies outputs based on state variables.
+    // It is periodically called every loop cycle.
+    protected abstract void handleTransitions();
 
     // Periodically calls init() once and onLoop() and log() every loop cycle. 
     @Override
@@ -35,8 +30,8 @@ public abstract class StateMachine extends SubsystemBase {
             init();
             mInitialized = true;
         }
-        onLoop();
-        log();
+        applyOutputs();
+        handleTransitions();
     }
 
 }
